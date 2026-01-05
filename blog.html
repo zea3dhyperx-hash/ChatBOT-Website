@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | ConverseOS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="wrapper nav">
+      <a class="logo" href="index.html">
+        <img src="assets/img/logo.svg" alt="ConverseOS logo" />
+        ConverseOS
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a class="btn" href="contact.html">Start a Project</a>
+    </div>
+  </header>
+
+  <main class="wrapper">
+    <section class="section">
+      <div class="section-header">
+        <h2>Field notes and playbooks</h2>
+        <span class="tag">Practical, tactical</span>
+      </div>
+      <p>We share what we learn designing, building, and operating assistants in the wild. No hype—just walkthroughs you can apply immediately.</p>
+      <div class="grid blog-grid" style="margin-top:20px;">
+        <article class="card blog-card">
+          <div class="badge">Playbook</div>
+          <h3>Designing escalation without breaking trust</h3>
+          <p>How to combine sentiment, intent confidence, and channel context to decide when (and how) to bring humans into the loop.</p>
+          <p class="inline-links"><a href="#">Read the guide →</a></p>
+        </article>
+        <article class="card blog-card">
+          <div class="badge" style="background: rgba(34, 211, 238, 0.2);">Deep dive</div>
+          <h3>RAG that won't hallucinate under pressure</h3>
+          <p>We outline our retrieval stack, validation steps, and red teaming scripts that keep generative responses on-rails.</p>
+          <p class="inline-links"><a href="#">See our stack →</a></p>
+        </article>
+        <article class="card blog-card">
+          <div class="badge" style="background: rgba(124, 58, 237, 0.2);">How we work</div>
+          <h3>The 30-day conversational MVP</h3>
+          <p>A sprint recipe with discovery, script writing, UX mockups, and a working prototype you can test with real customers.</p>
+          <p class="inline-links"><a href="#">Start the sprint →</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <div class="pill">Need a deeper dive?</div>
+        <h2>Book a workshop tailored to your industry.</h2>
+        <p>We run private sessions for support, sales, and product teams—complete with transcripts, templates, and benchmarks.</p>
+      </div>
+      <div>
+        <a class="btn" href="contact.html">Schedule a workshop</a>
+        <p style="margin-top:10px;" class="inline-links"><a href="services.html">Browse services</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrapper footer">
+    <div>ConverseOS — Conversational AI for ambitious teams.</div>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
