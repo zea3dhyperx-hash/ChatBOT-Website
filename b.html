@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            transition: filter 0.4s ease;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Floating Help Button - Top Right Corner */
+        .floating-help-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .floating-help-btn:hover {
+            background: #357ABD;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Dark Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Slide Panel - Positioned at right edge */
+        .slide-panel {
+            position: fixed;
+            top: 0;
+            right: -500px; /* Start off-screen */
+            width: 500px;
+            height: 100vh;
+            background: white;
+            z-index: 1002;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow-y: auto;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+            border-radius: 0;
+        }
+
+        .slide-panel.active {
+            right: 0;
+        }
+
+        /* Panel Content */
+        .panel-content {
+            padding: 0;
+        }
+
+        /* Main Title Section */
+        .main-title-section {
+            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+            color: white;
+            padding: 10px 30px;
+            margin: 0;
+        }
+
+        .main-title-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .main-title-section p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .relationship-number {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 8px;
+            margin-top: 0px;
+            font-size: 1rem;
+        }
+
+        .relationship-number strong {
+            font-size: 1.2rem;
+        }
+
+        /* Divider Line */
+        .divider-line {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 0;
+        }
+
+        /* Support Sections */
+        .support-section {
+            padding: 30px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .support-section h2 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .support-section h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 0px;
+            font-weight: 600;
+        }
+
+        /* Agent Section */
+        .agent-section {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4A90E2 0%, #63b3ed 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .agent-info h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .agent-info p {
+            color: #718096;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Action Buttons Grid */
+        .action-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 30px;
+            background: #f8f9ff;
+        }
+
+        .action-btn {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 20px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.2);
+        }
+
+        .action-btn:hover {
+            background: #e3f2fd;
+            color: #357ABD;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .action-btn.active {
+            background: #357ABD;
+            color: white;
+            box-shadow: 0 0 0 2px #4A90E2;
+        }
+
+        /* Raise Ticket Form Container - FIXED: No scroll movement */
+        .ticket-form-container {
+            background: white;
+            display: none;
+            position: relative;
+        }
+
+        .ticket-form-container.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ZEA CRM Form */
+        .zeacrm-form-wrapper {
+            padding: 0;
+            margin: 0;
+        }
+
+        #inline-MgoTsgwFVuiAaMxUmCjY {
+            width: 100%;
+            height: 890px;
+            border: none;
+            border-radius: 3px;
+            display: block;
+        }
+
+        /* Close Form Button */
+        .close-form-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: sticky;
+            bottom: 20px;
+            z-index: 10;
+        }
+
+        .close-form-btn:hover {
+            background: #ff3742;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+        }
+
+        /* Info Cards Section */
+        .info-cards {
+            padding: 30px;
+            display: block;
+        }
+
+        .ticket-form-container.active + .info-cards {
+            display: none;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: #4A90E2;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-card h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .info-card p {
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .info-card-btn {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .info-card-btn:hover {
+            background: #357ABD;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.3);
+        }
+
+        /* CRITICAL: Hide floating chat launcher */
+        .lead-connector-chat-launcher,
+        [data-testid="widget-launcher"],
+        .chat-widget-launcher,
+        .floating-chat-button,
+        .lc-chat-launcher,
+        .chat-launcher,
+        .launcher-button,
+        .widget-launcher,
+        .ghl-chat-launcher {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        /* Keep chat widget visible */
+        .lead-connector-chat-widget {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* Chat widget positioning */
+        .lead-connector-chat-widget {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 999 !important;
+            max-height: 500px !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .slide-panel {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .main-title-section {
+                padding: 30px 20px;
+            }
+            
+            .main-title-section h1 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .info-cards {
+                padding: 20px;
+            }
+            
+            .info-card {
+                padding: 20px;
+            }
+            
+            #inline-MgoTsgwFVuiAaMxUmCjY {
+                height: 700px;
+            }
+            
+            .floating-help-btn {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .main-title-section {
+                padding: 25px 15px;
+            }
+            
+            .support-section {
+                padding: 20px;
+            }
+            
+            .action-btn {
+                padding: 18px 10px;
+            }
+            
+            #inline-MgoTsgwFVuiAaMxUmCjY {
+                height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Website Content -->
+    <div class="main-content">
+        <h1>Your Website</h1>
+        <p>This is your main website content. The page will darken when the help panel opens.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+    <!-- Floating Help Button -->
+    <button class="floating-help-btn" id="helpBtn" title="Help & Support">?</button>
+
+    <!-- Dark Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Slide Panel -->
+    <div class="slide-panel" id="slidePanel">
+        <!-- Panel Content -->
+        <div class="panel-content">
+            <!-- Main Title Section -->
+            <div class="main-title-section">
+                <h2>Help & Support</h2>
+                <p>Whether you want to talk to us, the community, or learn on your own, we've got you covered!</p>
+                <div class="relationship-number">
+                    Relationship Number <strong>0-424-624</strong>
+                </div>
+            </div>
+
+            <!-- Divider Line -->
+            <div class="divider-line"></div>
+
+            <!-- Help & Support Section -->
+            <div class="support-section">
+                <!-- <h2>Help & Support</h2>
+                <h3>Help & Support</h3>
+                <h3 style="color: #2d3748; margin-bottom: 20px;">Help & Support</h3> -->
+                
+                <!-- Agent Section -->
+                <div class="agent-section">
+                    <div class="agent-avatar">H</div>
+                    <div class="agent-info">
+                        <h3>Hi, I'm Highly!</h3>
+                        <p>Your Support Specialist</p>
+                        <p>Use any of the buttons below to get help!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons Grid -->
+            <div class="action-buttons-grid">
+                <button class="action-btn" id="zoomBtn" onclick="openZoom()">
+                    Start Zoom
+                </button>
+                
+                <button class="action-btn" id="chatBtn" onclick="openChat()">
+                    Start Chat
+                </button>
+                
+                <button class="action-btn" id="ticketBtn" onclick="toggleTicketForm()">
+                    Raise Ticket
+                </button>
+            </div>
+
+            <!-- Raise Ticket Form Container - Appears IN PLACE -->
+            <div class="ticket-form-container" id="ticketFormContainer">
+                <div class="zeacrm-form-wrapper">
+                    <!-- Your EXACT ZEA CRM Form -->
+                    <iframe
+                        src="https://www.zeacrm.com/widget/form/MgoTsgwFVuiAaMxUmCjY"
+                        style="width:100%;height:100%;border:none;border-radius:3px"
+                        id="inline-MgoTsgwFVuiAaMxUmCjY" 
+                        data-layout="{'id':'INLINE'}"
+                        data-trigger-type="alwaysShow"
+                        data-trigger-value=""
+                        data-activation-type="alwaysActivated"
+                        data-activation-value=""
+                        data-deactivation-type="neverDeactivate"
+                        data-deactivation-value=""
+                        data-form-name="Raise Ticket in Support"
+                        data-height="890"
+                        data-layout-iframe-id="inline-MgoTsgwFVuiAaMxUmCjY"
+                        data-form-id="MgoTsgwFVuiAaMxUmCjY"
+                        title="Raise Ticket in Support"
+                    >
+                    </iframe>
+                </div>
+                <button class="close-form-btn" onclick="closeTicketForm()">Close Form</button>
+            </div>
+
+            <!-- Info Cards Section (Hidden when form is shown) -->
+            <div class="info-cards" id="infoCardsSection">
+                <!-- Premium Support Card -->
+                <div class="info-card">
+                    <h3>Premium Support</h3>
+                    <p>Get priority troubleshooting, expert guidance, and direct access to our technical team via Slack.</p>
+                    <button class="info-card-btn" onclick="upgradeToPremium()">Upgrade Now</button>
+                </div>
+
+                <!-- Certified Admin Card -->
+                <div class="info-card">
+                    <h3>Connect with a Certified Admin</h3>
+                    <p>Explore HighLevel experts who can help set up your system, automate workflows, or customize your project.</p>
+                    <button class="info-card-btn" onclick="findCertifiedAdmin()">Find an Expert</button>
+                </div>
+
+                <!-- New Card 1: Video Tutorials -->
+                <div class="info-card">
+                    <h3>Video Tutorials Library</h3>
+                    <p>Access our extensive library of video tutorials covering everything from basic setup to advanced features.</p>
+                    <button class="info-card-btn" onclick="openTutorials()">Watch Tutorials</button>
+                </div>
+
+                <!-- New Card 2: Community Forum -->
+                <div class="info-card">
+                    <h3>Community Forum</h3>
+                    <p>Join thousands of users in our active community forum. Ask questions, share tips, and learn from others.</p>
+                    <button class="info-card-btn" onclick="openCommunityForum()">Join Community</button>
+                </div>
+
+                <!-- New Card 3: API Documentation -->
+                <div class="info-card">
+                    <h3>API Documentation</h3>
+                    <p>Complete API documentation for developers looking to integrate and extend platform functionality.</p>
+                    <button class="info-card-btn" onclick="openAPIDocs()">View API Docs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container for chat widgets -->
+    <div id="chatWidgetContainer"></div>
+
+    <!-- ZEA CRM Form Script -->
+    <script src="https://www.zeacrm.com/js/form_embed.js"></script>
+
+    <script>
+        // ================================================
+        // WIDGET CONFIGURATION
+        // ================================================
+        const WIDGET_IDS = {
+            sales: '695baee03a2b4b52fc6d0f5d',    // Sales widget ID
+            support: '695baee03a2b4b52fc6d0f5d',  // Support widget ID
+            billing: '695baee03a2b4b52fc6d0f5d'   // Billing widget ID
+        };
+        
+        const CHAT_TITLES = {
+            sales: 'Sales Support',
+            support: 'Technical Support',
+            billing: 'Billing Support'
+        };
+        
+        let currentWidgetId = null;
+        let hideIconInterval = null;
+        let isTicketFormOpen = false;
+        let currentScrollPosition = 0;
+
+        // ================================================
+        // SLIDE PANEL MANAGEMENT
+        // ================================================
+        const helpBtn = document.getElementById('helpBtn');
+        const overlay = document.getElementById('overlay');
+        const slidePanel = document.getElementById('slidePanel');
+        const body = document.body;
+        const ticketFormContainer = document.getElementById('ticketFormContainer');
+        const ticketBtn = document.getElementById('ticketBtn');
+        const infoCardsSection = document.getElementById('infoCardsSection');
+
+        // Open panel
+        helpBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openPanel();
+        });
+
+        // Close panel when clicking overlay
+        overlay.addEventListener('click', closePanel);
+
+        // Close panel with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (isTicketFormOpen) {
+                    closeTicketForm();
+                } else {
+                    closePanel();
+                }
+            }
+        });
+
+        function openPanel() {
+            // Reset scroll position to top before opening
+            slidePanel.scrollTop = 0;
+            
+            // Close ticket form if open
+            closeTicketForm();
+            
+            // Activate overlay
+            overlay.classList.add('active');
+            
+            // Activate slide panel
+            slidePanel.classList.add('active');
+            
+            // Disable body scroll
+            body.style.overflow = 'hidden';
+            
+            // Darken main content
+            document.querySelector('.main-content').style.filter = 'brightness(0.8)';
+        }
+
+        function closePanel() {
+            // Close ticket form if open
+            closeTicketForm();
+            
+            // Reset scroll position
+            slidePanel.scrollTop = 0;
+            
+            // Deactivate slide panel
+            slidePanel.classList.remove('active');
+            
+            // After animation completes, hide overlay
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                
+                // Re-enable body scroll
+                body.style.overflow = 'auto';
+                
+                // Restore main content brightness
+                document.querySelector('.main-content').style.filter = 'brightness(1)';
+            }, 400);
+        }
+
+        // ================================================
+        // ZOOM LINK FUNCTIONALITY
+        // ================================================
+        function openZoom() {
+            // Close panel
+            closePanel();
+            
+            // Open Zoom booking link in new tab
+            window.open('https://www.zeacrm.com/widget/bookings/customer-service-booked-for-a-zoom-call', '_blank');
+        }
+
+        // ================================================
+        // CHAT FUNCTIONALITY
+        // ================================================
+        function openChat() {
+            loadChatWidget(WIDGET_IDS.sales, CHAT_TITLES.sales);
+        }
+
+        // ================================================
+        // TICKET FORM FUNCTIONALITY - FIXED: No scroll movement
+        // ================================================
+        function toggleTicketForm() {
+            if (isTicketFormOpen) {
+                closeTicketForm();
+            } else {
+                openTicketForm();
+            }
+        }
+
+        function openTicketForm() {
+            // Save current scroll position
+            currentScrollPosition = slidePanel.scrollTop;
+            
+            // Mark button as active
+            ticketBtn.classList.add('active');
+            
+            // Show the form container (appears in place)
+            ticketFormContainer.classList.add('active');
+            
+            // Hide info cards
+            infoCardsSection.style.display = 'none';
+            
+            // NO SCROLLING - form appears right where the button was clicked
+            // Keep the panel at the same scroll position
+            slidePanel.scrollTop = currentScrollPosition;
+            
+            isTicketFormOpen = true;
+        }
+
+        function closeTicketForm() {
+            // Remove active state from button
+            ticketBtn.classList.remove('active');
+            
+            // Hide the form container
+            ticketFormContainer.classList.remove('active');
+            
+            // Show info cards
+            infoCardsSection.style.display = 'block';
+            
+            // NO SCROLLING - stay at current position
+            slidePanel.scrollTop = currentScrollPosition;
+            
+            isTicketFormOpen = false;
+        }
+
+        // ================================================
+        // HIDE FLOATING CHAT LAUNCHER
+        // ================================================
+        function hideFloatingLauncher() {
+            const launcherSelectors = [
+                '.lead-connector-chat-launcher',
+                '[data-testid="widget-launcher"]',
+                '.chat-widget-launcher',
+                '.floating-chat-button',
+                '.lc-chat-launcher',
+                '.chat-launcher',
+                '.launcher-button',
+                '.widget-launcher',
+                '.ghl-chat-launcher'
+            ];
+            
+            launcherSelectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(el => {
+                    if (!el.closest('.lead-connector-chat-widget')) {
+                        el.style.display = 'none';
+                        el.style.visibility = 'hidden';
+                        el.style.opacity = '0';
+                    }
+                });
+            });
+        }
+
+        // ================================================
+        // CHAT WIDGET LOADER
+        // ================================================
+        function loadChatWidget(widgetId, title) {
+            console.log(`Loading chat: ${title} (${widgetId})`);
+            
+            // Close panel when chat button is clicked
+            closePanel();
+            
+            // Remove existing widget if any
+            if (window.leadConnector && window.leadConnector.chatWidget) {
+                try {
+                    window.leadConnector.chatWidget.close();
+                } catch(e) {
+                    console.log("Could not close previous widget");
+                }
+            }
+            
+            // Clear container
+            const container = document.getElementById('chatWidgetContainer');
+            container.innerHTML = '';
+            
+            // Start launcher hiding
+            if (hideIconInterval) {
+                clearInterval(hideIconInterval);
+            }
+            hideIconInterval = setInterval(hideFloatingLauncher, 300);
+            
+            // Create new widget script
+            const script = document.createElement('script');
+            script.src = 'https://widgets.leadconnectorhq.com/loader.js';
+            script.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+            script.setAttribute('data-widget-id', widgetId);
+            
+            script.onload = function() {
+                console.log('Widget script loaded');
+                
+                setTimeout(() => {
+                    if (window.leadConnector && window.leadConnector.chatWidget) {
+                        console.log('Opening widget...');
+                        window.leadConnector.chatWidget.openWidget();
+                        
+                        hideFloatingLauncher();
+                        
+                        setTimeout(() => {
+                            setChatTitle(title);
+                        }, 800);
+                    }
+                }, 1000);
+            };
+            
+            script.onerror = function() {
+                console.error('Failed to load widget script');
+                alert('Failed to load chat. Please try again.');
+            };
+            
+            container.appendChild(script);
+            
+            currentWidgetId = widgetId;
+            hideFloatingLauncher();
+        }
+
+        // ================================================
+        // INFO CARD BUTTON FUNCTIONS
+        // ================================================
+        function upgradeToPremium() {
+            closePanel();
+            alert('Redirecting to premium upgrade page...');
+        }
+
+        function findCertifiedAdmin() {
+            closePanel();
+            alert('Searching for certified admins...');
+        }
+
+        function openTutorials() {
+            closePanel();
+            alert('Opening video tutorials library...');
+        }
+
+        function openCommunityForum() {
+            closePanel();
+            alert('Redirecting to community forum...');
+        }
+
+        function openAPIDocs() {
+            closePanel();
+            alert('Opening API documentation...');
+        }
+
+        // ================================================
+        // UTILITY FUNCTIONS
+        // ================================================
+        function setChatTitle(title) {
+            try {
+                const chatHeader = document.querySelector('.lead-connector-chat-header h3');
+                if (chatHeader) {
+                    chatHeader.textContent = title;
+                }
+            } catch(e) {
+                console.log('Could not set chat title');
+            }
+        }
+
+        // ================================================
+        // OBSERVER FOR CHAT WIDGET
+        // ================================================
+        function observeChatWidget() {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.addedNodes.length > 0) {
+                        mutation.addedNodes.forEach(function(node) {
+                            if (node.nodeType === 1 && 
+                                (node.classList && node.classList.contains('lead-connector-chat-widget') ||
+                                 node.querySelector && node.querySelector('.lead-connector-chat-widget'))) {
+                                
+                                console.log('Chat widget detected');
+                                hideFloatingLauncher();
+                            }
+                        });
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        // ================================================
+        // INITIALIZATION
+        // ================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Help & Support Slide Panel Initialized');
+            
+            observeChatWidget();
+            
+            setTimeout(hideFloatingLauncher, 1000);
+        });
+
+        // ================================================
+        // WINDOW EVENT LISTENERS
+        // ================================================
+        window.addEventListener('resize', hideFloatingLauncher);
+        
+        window.addEventListener('beforeunload', function() {
+            if (hideIconInterval) {
+                clearInterval(hideIconInterval);
+            }
+        });
+    </script>
+</body>
+</html>

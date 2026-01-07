@@ -1,112 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About | ConverseOS</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .support-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .support-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .support-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .support-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .relationship-number {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 25px;
+            border-radius: 50px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .relationship-number strong {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        .agent-section {
+            display: flex;
+            align-items: center;
+            padding: 30px 40px;
+            background: #f8f9ff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4A90E2 0%, #63b3ed 100%);
+            border-radius: 50%;
+            margin-right: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .agent-info h3 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .agent-info p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 40px;
+            background: white;
+        }
+
+        .action-btn {
+            background: white;
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 30px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .action-btn.sales {
+            border-color: #4A90E2;
+        }
+
+        .action-btn.sales:hover {
+            background: #4A90E2;
+            color: white;
+        }
+
+        .action-btn.support {
+            border-color: #28a745;
+        }
+
+        .action-btn.support:hover {
+            background: #28a745;
+            color: white;
+        }
+
+        .action-btn.billing {
+            border-color: #ff9800;
+        }
+
+        .action-btn.billing:hover {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .btn-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .btn-desc {
+            font-size: 1rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .action-btn:hover .btn-desc {
+            color: white;
+        }
+
+        .premium-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+            color: white;
+            padding: 40px;
+            margin: 20px 40px;
+            border-radius: 15px;
+        }
+
+        .premium-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .premium-header h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .upgrade-btn {
+            background: #ffd700;
+            color: #2c3e50;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upgrade-btn:hover {
+            background: #ffed4e;
+            transform: scale(1.05);
+        }
+
+        .premium-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .info-sections {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            padding: 40px;
+            background: #f8f9ff;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .info-card h3 {
+            color: #2d3748;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .info-btn {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .info-btn:hover {
+            background: #357abd;
+        }
+
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-frame {
+            width: 90%;
+            max-width: 400px;
+            height: 600px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .close-chat {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons, .info-sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .support-header {
+                padding: 30px 20px;
+            }
+            
+            .agent-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .agent-avatar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="wrapper nav">
-      <a class="logo" href="index.html">
-        <img src="assets/img/logo.svg" alt="ConverseOS logo" />
-        ConverseOS
-      </a>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="blog.html">Blog</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <a class="btn" href="contact.html">Start a Project</a>
-    </div>
-  </header>
-
-  <main class="wrapper">
-    <section class="hero">
-      <div>
-        <div class="pill">Who we are</div>
-        <h1>Designers, writers, and engineers building AI experiences that feel personal.</h1>
-        <p>We founded ConverseOS to close the gap between raw AI capability and real-world reliability. Our crew blends research from conversation analysis with production software practices so every launch feels intentional—and measurable.</p>
-      </div>
-      <div class="hero-visual">
-        <div class="blob"></div>
-        <div class="device">
-          <img src="assets/img/connections.svg" alt="Team collaboration illustration" />
+    <div class="support-container">
+        <!-- Header Section -->
+        <div class="support-header">
+            <h1>Help & Support</h1>
+            <p>Whether you want to talk to us, the community, or learn on your own,</p>
+            <p>we've got you covered!</p>
+            <div class="relationship-number">
+                Relationship Number <strong>0-424-624</strong>
+            </div>
         </div>
-      </div>
-    </section>
 
-    <section class="section">
-      <div class="section-header">
-        <h2>Our principles</h2>
-        <span class="tag">Trust-first delivery</span>
-      </div>
-      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
-        <article class="card">
-          <h3>Evidence over ego</h3>
-          <p>We test every flow against real transcripts and target metrics. If it does not move the number, it does not ship.</p>
-        </article>
-        <article class="card">
-          <h3>Guardrails by default</h3>
-          <p>We add tone checks, retrieval validation, and human handoffs, so your assistant stays accurate under pressure.</p>
-        </article>
-        <article class="card">
-          <h3>Momentum matters</h3>
-          <p>We build in weeks, not quarters—launching an MVP fast, then tuning with feedback and analytics.</p>
-        </article>
-      </div>
-    </section>
+        <!-- Agent Introduction -->
+        <div class="agent-section">
+            <div class="agent-avatar">
+                H
+            </div>
+            <div class="agent-info">
+                <h3>Hi, I'm Highly!</h3>
+                <p>Your Support Specialist</p>
+                <p>Use any of the buttons below to get help!</p>
+            </div>
+        </div>
 
-    <section class="section">
-      <div class="section-header">
-        <h2>Leadership</h2>
-        <span class="tag">Hands-on experts</span>
-      </div>
-      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
-        <article class="card contact-card">
-          <strong>Devon Ray — Product Lead</strong>
-          <p>Shapes vision and keeps launches on track. Previously led CX automation at a Fortune 200 retailer.</p>
-        </article>
-        <article class="card contact-card">
-          <strong>Aisha Singh — Conversation Design</strong>
-          <p>Writes scripts that read like real people. Linguistics background with a decade of IVR and chat experience.</p>
-        </article>
-        <article class="card contact-card">
-          <strong>Mateo Chen — Engineering</strong>
-          <p>Builds resilient backends and analytics. Obsessed with observability, latency, and graceful fallbacks.</p>
-        </article>
-      </div>
-    </section>
+        <!-- Chat Selection Buttons -->
+        <div class="action-buttons">
+            <a href="javascript:void(0)" onclick="openChatWidget('sales')" class="action-btn sales">
+                <div class="btn-icon">💬</div>
+                <div class="btn-title">Sales Support</div>
+                <div class="btn-desc">Get help with pricing, demos, and sales questions</div>
+            </a>
+            
+            <a href="javascript:void(0)" onclick="openChatWidget('support')" class="action-btn support">
+                <div class="btn-icon">🔧</div>
+                <div class="btn-title">Technical Support</div>
+                <div class="btn-desc">Technical issues, bugs, and platform assistance</div>
+            </a>
+            
+            <a href="javascript:void(0)" onclick="openChatWidget('billing')" class="action-btn billing">
+                <div class="btn-icon">💰</div>
+                <div class="btn-title">Billing Support</div>
+                <div class="btn-desc">Billing questions, invoices, and payment issues</div>
+            </a>
+        </div>
 
-    <section class="cta">
-      <div>
-        <div class="pill">Side-by-side partnership</div>
-        <h2>We embed with your team to ship outcomes, not just features.</h2>
-        <p>Strategy sprints, UX writing, integrations, and post-launch tuning—all handled by the same crew.</p>
-      </div>
-      <div>
-        <a class="btn" href="services.html">See our process</a>
-        <p style="margin-top:10px;" class="inline-links"><a href="contact.html">Book time</a> · <a href="blog.html">Read insights</a></p>
-      </div>
-    </section>
-  </main>
+        <!-- Premium Support Section -->
+        <div class="premium-section">
+            <div class="premium-header">
+                <h3>Premium Support</h3>
+                <button class="upgrade-btn">Click to Upgrade</button>
+            </div>
+            <p>Get priority troubleshooting, expert guidance, and direct<br>
+            access to our technical team via Slack.</p>
+        </div>
 
-  <footer class="wrapper footer">
-    <div>ConverseOS — Conversational AI for ambitious teams.</div>
-    <nav>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="blog.html">Blog</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </footer>
+        <!-- Additional Info Sections -->
+        <div class="info-sections">
+            <div class="info-card">
+                <h3>Connect with a Certified Admin</h3>
+                <p>Explore HighLevel experts who can help set up your system, 
+                automate workflows, or customize your project.</p>
+                <button class="info-btn">Find an Expert</button>
+            </div>
+            
+            <div class="info-card">
+                <h3>Visit our Help Center</h3>
+                <p>View your support tickets, our support articles and helpful 
+                FAQs for quick self-service solutions.</p>
+                <button class="info-btn">Open Help Center</button>
+            </div>
+        </div>
+    </div>
 
-  <script src="assets/js/main.js"></script>
+    <!-- Chat Modal -->
+    <div class="chat-modal" id="chatModal">
+        <button class="close-chat" onclick="closeChatModal()">×</button>
+        <div class="chat-frame" id="chatFrame"></div>
+    </div>
+
+    <script>
+        // Chat Widget Configuration
+        // REPLACE THESE WITH YOUR ACTUAL WIDGET IDs
+        const chatWidgets = {
+            sales: '6957688f9b31e9677a93cd8a',      // Replace with your Sales widget ID
+            support: '695baee03a2b4b52fc6d0f5d',  // Replace with your Support widget ID
+            billing: '695bb2498f78c50f59b82a22'   // Replace with your Billing widget ID
+        };
+
+        // Your Location ID (find in GHL Settings)
+        const locationId = 'bsexF0htDBOfNeCh7844';  // Replace with your Location ID
+
+        // Base URL for your GHL chat
+        const baseUrl = `https://widget.gohighlevel.com/widgets/chat/${locationId}`;
+
+        function openChatWidget(type) {
+            const widgetId = chatWidgets[type];
+            
+            if (!widgetId || widgetId === 'YOUR_WIDGET_ID') {
+                alert('Chat widget not configured. Please contact administrator.');
+                return;
+            }
+
+            // Build the URL with parameters
+            const chatUrl = `${baseUrl}/${widgetId}?autoOpen=true&department=${type}`;
+            
+            // Open in modal
+            openChatModal(chatUrl);
+            
+            // OR open in new tab (uncomment if preferred)
+            // window.open(chatUrl, '_blank');
+        }
+
+        function openChatModal(url) {
+            const modal = document.getElementById('chatModal');
+            const frame = document.getElementById('chatFrame');
+            
+            frame.src = url;
+            modal.style.display = 'flex';
+            
+            // Add keyboard shortcut to close (ESC key)
+            document.addEventListener('keydown', handleEscapeKey);
+        }
+
+        function closeChatModal() {
+            const modal = document.getElementById('chatModal');
+            const frame = document.getElementById('chatFrame');
+            
+            modal.style.display = 'none';
+            frame.src = '';
+            
+            document.removeEventListener('keydown', handleEscapeKey);
+        }
+
+        function handleEscapeKey(event) {
+            if (event.key === 'Escape') {
+                closeChatModal();
+            }
+        }
+
+        // Optional: Auto-detect department from URL
+        function checkUrlForDepartment() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const dept = urlParams.get('dept');
+            
+            if (dept && ['sales', 'support', 'billing'].includes(dept)) {
+                setTimeout(() => openChatWidget(dept), 1000);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUrlForDepartment();
+            
+            // Add direct URL links for each department
+            document.querySelectorAll('.action-btn').forEach(btn => {
+                const type = btn.classList.contains('sales') ? 'sales' : 
+                            btn.classList.contains('support') ? 'support' : 'billing';
+                
+                // Optional: Update href for right-click "Open in new tab"
+                btn.href = `?dept=${type}`;
+            });
+        });
+    </script>
 </body>
 </html>

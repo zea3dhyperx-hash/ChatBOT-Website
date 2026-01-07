@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Vista | Fine Dining Restaurant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #c19a6b;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #f9f9f9;
+            --dark-color: #333;
+            --gray-color: #7f8c8d;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--secondary-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: #eee;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Menu Section */
+        .menu {
+            background-color: #f5f5f5;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        
+        .menu-item p {
+            color: var(--gray-color);
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        
+        /* Reservation Section */
+        .reservation-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin-top: 8px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-text, .about-image {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 0;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--secondary-color);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 10px 22px;
+            }
+            
+            .reservation-form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Bella<span>Vista</span></a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#reservation">Reservations</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Experience Culinary Excellence</h1>
+                <p>Welcome to Bella Vista, where traditional recipes meet contemporary innovation. Our chefs create unforgettable dining experiences using the finest locally sourced ingredients.</p>
+                <a href="#reservation" class="btn">Make a Reservation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Established in 2005, Bella Vista has been a cornerstone of fine dining in our community. Our founder, Chef Marco Rossi, envisioned a restaurant that combines authentic Italian flavors with modern culinary techniques.</p>
+                    <p>We pride ourselves on sourcing the freshest ingredients from local farmers and producers, ensuring each dish tells a story of quality and passion.</p>
+                    <p>Whether you're celebrating a special occasion or enjoying a casual dinner, our warm atmosphere and attentive service will make your experience truly memorable.</p>
+                    <a href="#menu" class="btn" style="margin-top: 20px;">View Our Menu</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1554679665-f5537f187268?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Restaurant interior">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <h2>Signature Dishes</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Truffle Pasta">
+                    <div class="menu-item-content">
+                        <h3>Truffle Infused Pasta</h3>
+                        <p>Homemade fettuccine with black truffle, wild mushrooms, and parmesan cream sauce.</p>
+                        <div class="price">$24.95</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Grilled Salmon">
+                    <div class="menu-item-content">
+                        <h3>Grilled Atlantic Salmon</h3>
+                        <p>Fresh salmon with lemon herb butter, served with seasonal vegetables and crushed potatoes.</p>
+                        <div class="price">$28.50</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Tiramisu">
+                    <div class="menu-item-content">
+                        <h3>Classic Tiramisu</h3>
+                        <p>Layers of espresso-soaked ladyfingers and mascarpone cream, dusted with cocoa powder.</p>
+                        <div class="price">$10.95</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation">
+        <div class="container">
+            <h2>Make a Reservation</h2>
+            <div class="reservation-form">
+                <form id="bookingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guests">Number of Guests</label>
+                            <select id="guests" class="form-control" required>
+                                <option value="">Select</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5 People</option>
+                                <option value="6">6 People</option>
+                                <option value="7">7+ People</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <select id="time" class="form-control" required>
+                                <option value="">Select</option>
+                                <option value="17:00">5:00 PM</option>
+                                <option value="17:30">5:30 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                                <option value="18:30">6:30 PM</option>
+                                <option value="19:00">7:00 PM</option>
+                                <option value="19:30">7:30 PM</option>
+                                <option value="20:00">8:00 PM</option>
+                                <option value="20:30">8:30 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests">Special Requests (Optional)</label>
+                        <textarea id="specialRequests" class="form-control" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">Book Your Table</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Bella Vista</h3>
+                    <p>Experience the finest dining in town with our exquisite menu and exceptional service.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Gourmet Avenue, Food City, FC 10001</p>
+                        <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                        <p><i class="fas fa-envelope"></i> info@bellavista.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sun: 11AM - 11PM</p>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="#home" style="color: white; text-decoration: none; margin-bottom: 10px; display: inline-block;">Home</a></li>
+                        <li><a href="#about" style="color: white; text-decoration: none; margin-bottom: 10px; display: inline-block;">About Us</a></li>
+                        <li><a href="#menu" style="color: white; text-decoration: none; margin-bottom: 10px; display: inline-block;">Menu</a></li>
+                        <li><a href="#reservation" style="color: white; text-decoration: none; margin-bottom: 10px; display: inline-block;">Reservations</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Bella Vista Restaurant. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            
+            // Change icon based on menu state
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mainNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+        
+        // Form Submission
+        const bookingForm = document.getElementById('bookingForm');
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const date = document.getElementById('date').value;
+            const guests = document.getElementById('guests').value;
+            
+            // Format date for display
+            const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Show confirmation message
+            alert(`Thank you, ${name}! Your reservation for ${guests} guest(s) on ${formattedDate} has been received. We will contact you shortly to confirm.`);
+            
+            // Reset form
+            bookingForm.reset();
+        });
+        
+        // Set minimum date for reservation to today
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+// Help & Support Slide Panel Script
+(function() {
+    'use strict';
+    
+    // Configuration
+    const CHAT_WIDGET_ID = '695baee03a2b4b52fc6d0f5d'; // Your chat widget ID
+    const AGENT_AVATAR_URL = 'https://storage.googleapis.com/msgsndr/bsexF0htDBOfNeCh7844/media/690ee29c6fdbca25a57fe58e.png';
+    
+    // URLs for redirects - UPDATE THESE WITH YOUR ACTUAL URLs
+    const UPGRADE_URL = 'https://zeacrm.com/pricing'; // Replace with actual upgrade URL
+    const TUTORIALS_URL = 'https://zeacrm.com/playbooks/videos'; // Replace with actual tutorials URL
+    const COMMUNITY_URL = 'https://zeacrm.com/contact-us'; // Replace with actual community URL
+    
+    // Create and inject styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .help-support-floating-btn {
+            position: fixed; top: 20px; right: 20px; width: 50px; height: 50px;
+            background: #dfa822; color: black; border: none; border-radius: 50%;
+            font-size: 24px; cursor: pointer; z-index: 10000; display: flex;
+            align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(223, 168, 34, 0.3);
+            transition: all 0.3s ease;
+        }
+        .help-support-floating-btn:hover {
+            background: #c5941e; transform: scale(1.1); box-shadow: 0 6px 16px rgba(223, 168, 34, 0.4);
+        }
+        
+        .help-support-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); z-index: 10001; display: none; opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .help-support-overlay.active { display: block; opacity: 1; }
+        
+        .help-support-panel {
+            position: fixed; top: 0; right: -500px; width: 500px; height: 100vh;
+            background: white; z-index: 10002; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow-y: auto; box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+        }
+        .help-support-panel.active { right: 0; }
+        
+        .help-support-panel-content { padding: 0; }
+        .help-support-title-section {
+            background: linear-gradient(135deg, #dfa822 0%, #c5941e 100%); color: black;
+            padding: 10px 30px; margin: 0;
+        }
+        .help-support-title-section h2 { font-size: 2rem; margin-bottom: 0px; font-weight: 700; }
+        .help-support-title-section p { font-size: 1.1rem; opacity: 0.9; color: black; line-height: 1.6; }
+        
+        .help-support-section { padding: 10px; border-bottom: 1px solid #e2e8f0; }
+        .help-support-section h3 { color: black; font-size: 1.3rem; margin-bottom: 0px; font-weight: 600; }
+        .help-support-section p { color: black; opacity: 0.7; padding: 0px; margin:0;}
+        
+        .help-support-agent-section {
+            background: #fffdf5; padding: 15px; border-radius: 10px; margin-top: 15px; text-align: center;
+        }
+        .help-support-agent-avatar {
+            width: 100px; height: 100px; background: white;
+            border-radius: 0%; margin: 0 auto 0px auto; display: flex; align-items: center;
+            justify-content: center; font-size: 32px; color: black; font-weight: bold;
+            overflow: hidden; border: 0px solid #dfa822;
+        }
+        .help-support-agent-avatar img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+        }
+        
+        .help-support-buttons-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
+            padding: 30px; background: #fffdf5;
+        }
+        .help-support-btn {
+            background: #dfa822; color: black; border: none; border-radius: 8px;
+            padding: 20px 15px; cursor: pointer; transition: all 0.3s ease; text-align: center;
+            font-size: 1rem; font-weight: 600; box-shadow: 0 4px 8px rgba(223, 168, 34, 0.2);
+        }
+        .help-support-btn:hover {
+            background: #c5941e; transform: translateY(-3px); box-shadow: 0 6px 12px rgba(223, 168, 34, 0.3);
+        }
+        .help-support-btn.active { 
+            background: #c5941e; color: black; box-shadow: 0 0 0 2px #dfa822; 
+        }
+        
+        .help-support-ticket-container { background: white; display: none; position: relative; }
+        .help-support-ticket-container.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .help-support-info-cards { padding: 30px; display: block; }
+        .help-support-info-card {
+            background: white; border: 1px solid #e2e8f0; border-radius: 10px;
+            padding: 25px; margin-bottom: 20px; transition: all 0.3s ease;
+        }
+        .help-support-info-card:hover {
+            border-color: #dfa822; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        .help-support-info-card h3 { color: black; font-size: 1.3rem; margin-bottom: 12px; font-weight: 600; }
+        .help-support-info-card p { color: #333; line-height: 1.6; margin-bottom: 20px; font-size: 0.95rem; }
+        .help-support-info-card-btn {
+            background: #dfa822; color: black; border: none; border-radius: 6px;
+            padding: 10px 20px; cursor: pointer; transition: all 0.3s ease;
+            font-size: 0.9rem; font-weight: 600;
+        }
+        .help-support-info-card-btn:hover {
+            background: #c5941e; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(223, 168, 34, 0.3);
+        }
+        
+        .help-support-close-form-btn {
+            background: #333; color: white; border: none; padding: 12px 24px;
+            border-radius: 5px; cursor: pointer; margin: 20px auto; display: block;
+            font-weight: 600; font-size: 1rem; transition: all 0.3s ease; position: sticky; bottom: 20px; z-index: 10;
+        }
+        .help-support-close-form-btn:hover {
+            background: #000; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        @media (max-width: 600px) {
+            .help-support-panel { width: 100%; right: -100%; }
+            .help-support-title-section { padding: 30px 20px; }
+            .help-support-title-section h2 { font-size: 2rem; }
+            .help-support-buttons-grid { grid-template-columns: 1fr; padding: 20px; }
+            .help-support-info-cards { padding: 20px; }
+            .help-support-info-card { padding: 20px; }
+            .help-support-floating-btn { top: 15px; right: 15px; width: 45px; height: 45px; font-size: 22px; }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Create HTML elements
+    const floatingBtn = document.createElement('button');
+    floatingBtn.className = 'help-support-floating-btn';
+    floatingBtn.id = 'helpSupportBtn';
+    floatingBtn.title = 'Help & Support';
+    floatingBtn.textContent = '?';
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'help-support-overlay';
+    overlay.id = 'helpSupportOverlay';
+    
+    const panel = document.createElement('div');
+    panel.className = 'help-support-panel';
+    panel.id = 'helpSupportPanel';
+    panel.innerHTML = `
+        <div class="help-support-panel-content">
+            <div class="help-support-title-section">
+                <h2>Help & Support</h2>
+                <p>Whether you want to talk to us, the community, or learn on your own, we've got you covered!</p>
+            </div>
+            
+            <div class="help-support-section">
+                <div class="help-support-agent-section">
+                    <div class="help-support-agent-avatar">
+                        <img src="${AGENT_AVATAR_URL}" alt="Zea CRM Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23dfa822\'/><text x=\'50\' y=\'60\' font-family=\'Arial\' font-size=\'40\' text-anchor=\'middle\' fill=\'black\'>Z</text></svg>'" />
+                    </div>
+                    <div class="help-support-agent-info">
+                        <h3>Hi, I'm Zea!</h3>
+                        <p>Your Support Specialist</p>
+                        <p>Use any of the buttons below to get help!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="help-support-buttons-grid">
+                <button class="help-support-btn" id="helpSupportZoomBtn">
+                    Start Zoom
+                </button>
+                <button class="help-support-btn" id="helpSupportChatBtn">
+                    Start Chat
+                </button>
+                <button class="help-support-btn" id="helpSupportTicketBtn">
+                    Raise Ticket
+                </button>
+            </div>
+            
+            <div class="help-support-ticket-container" id="helpSupportTicketContainer">
+                <div class="zeacrm-form-wrapper">
+                    <iframe
+                        src="https://www.zeacrm.com/widget/form/MgoTsgwFVuiAaMxUmCjY"
+                        style="width:100%;height:890px;border:none;border-radius:3px"
+                        id="inline-MgoTsgwFVuiAaMxUmCjY" 
+                        data-layout="{'id':'INLINE'}"
+                        data-trigger-type="alwaysShow"
+                        data-activation-type="alwaysActivated"
+                        data-form-name="Raise Ticket in Support"
+                        title="Raise Ticket in Support">
+                    </iframe>
+                </div>
+                <button class="help-support-close-form-btn" id="helpSupportCloseFormBtn">Close Form</button>
+            </div>
+            
+            <div class="help-support-info-cards" id="helpSupportInfoCards">
+                <div class="help-support-info-card">
+                    <h3>Premium Support</h3>
+                    <p>Get priority troubleshooting, expert guidance, and direct access to our technical team.</p>
+                    <button class="help-support-info-card-btn" id="helpSupportUpgradeBtn">Upgrade Now</button>
+                </div>
+                <div class="help-support-info-card">
+                    <h3>Video Tutorials</h3>
+                    <p>Access our extensive library of video tutorials covering basic setup to advanced features.</p>
+                    <button class="help-support-info-card-btn" id="helpSupportTutorialsBtn">Watch Tutorials</button>
+                </div>
+                <div class="help-support-info-card">
+                    <h3>Community Forum</h3>
+                    <p>Join thousands of users in our active community forum. Ask questions and share tips.</p>
+                    <button class="help-support-info-card-btn" id="helpSupportCommunityBtn">Join Community</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    const chatContainer = document.createElement('div');
+    chatContainer.id = 'helpSupportChatContainer';
+    
+    // Append elements to body
+    document.body.appendChild(floatingBtn);
+    document.body.appendChild(overlay);
+    document.body.appendChild(panel);
+    document.body.appendChild(chatContainer);
+    
+    // Load ZEA CRM script
+    const zeaScript = document.createElement('script');
+    zeaScript.src = 'https://www.zeacrm.com/js/form_embed.js';
+    document.head.appendChild(zeaScript);
+    
+    // Variables
+    let isTicketFormOpen = false;
+    let currentScrollPosition = 0;
+    
+    // Functions
+    function openPanel() {
+        panel.scrollTop = 0;
+        closeTicketForm();
+        overlay.classList.add('active');
+        panel.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closePanel() {
+        closeTicketForm();
+        panel.scrollTop = 0;
+        panel.classList.remove('active');
+        setTimeout(() => {
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }, 400);
+    }
+    
+    function openZoom() {
+        closePanel();
+        window.open('https://www.zeacrm.com/widget/bookings/customer-service-booked-for-a-zoom-call', '_blank');
+    }
+    
+    function openChat() {
+        loadChatWidget();
+    }
+    
+    function loadChatWidget() {
+        closePanel();
+        
+        // Clear container
+        chatContainer.innerHTML = '';
+        
+        // Create chat widget script
+        const script = document.createElement('script');
+        script.src = 'https://widgets.leadconnectorhq.com/loader.js';
+        script.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+        script.setAttribute('data-widget-id', CHAT_WIDGET_ID);
+        
+        script.onload = function() {
+            setTimeout(() => {
+                if (window.leadConnector && window.leadConnector.chatWidget) {
+                    window.leadConnector.chatWidget.openWidget();
+                }
+            }, 1000);
+        };
+        
+        chatContainer.appendChild(script);
+    }
+    
+    function toggleTicketForm() {
+        if (isTicketFormOpen) {
+            closeTicketForm();
+        } else {
+            openTicketForm();
+        }
+    }
+    
+    function openTicketForm() {
+        currentScrollPosition = panel.scrollTop;
+        document.getElementById('helpSupportTicketBtn').classList.add('active');
+        document.getElementById('helpSupportTicketContainer').classList.add('active');
+        document.getElementById('helpSupportInfoCards').style.display = 'none';
+        panel.scrollTop = currentScrollPosition;
+        isTicketFormOpen = true;
+    }
+    
+    function closeTicketForm() {
+        document.getElementById('helpSupportTicketBtn').classList.remove('active');
+        document.getElementById('helpSupportTicketContainer').classList.remove('active');
+        document.getElementById('helpSupportInfoCards').style.display = 'block';
+        panel.scrollTop = currentScrollPosition;
+        isTicketFormOpen = false;
+    }
+    
+    // Function to redirect to URL
+    function redirectTo(url) {
+        if (url && url !== '#') {
+            closePanel();
+            window.open(url, '_blank');
+        }
+    }
+    
+    // Event Listeners
+    floatingBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openPanel();
+    });
+    
+    overlay.addEventListener('click', closePanel);
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (isTicketFormOpen) {
+                closeTicketForm();
+            } else {
+                closePanel();
+            }
+        }
+    });
+    
+    // Button event listeners
+    document.getElementById('helpSupportZoomBtn').addEventListener('click', openZoom);
+    document.getElementById('helpSupportChatBtn').addEventListener('click', openChat);
+    document.getElementById('helpSupportTicketBtn').addEventListener('click', toggleTicketForm);
+    document.getElementById('helpSupportCloseFormBtn').addEventListener('click', closeTicketForm);
+    
+    // Info card buttons - Updated with redirects
+    document.getElementById('helpSupportUpgradeBtn').addEventListener('click', function() {
+        redirectTo(UPGRADE_URL);
+    });
+    
+    document.getElementById('helpSupportTutorialsBtn').addEventListener('click', function() {
+        redirectTo(TUTORIALS_URL);
+    });
+    
+    document.getElementById('helpSupportCommunityBtn').addEventListener('click', function() {
+        redirectTo(COMMUNITY_URL);
+    });
+    
+    // Initialize
+    console.log('Help & Support Panel loaded successfully');
+    console.log('Configuration URLs:', {
+        upgrade: UPGRADE_URL,
+        tutorials: TUTORIALS_URL,
+        community: COMMUNITY_URL
+    });
+})();
+</script>
+
+</body>
+</html>

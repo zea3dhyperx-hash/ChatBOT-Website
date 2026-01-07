@@ -1,0 +1,649 @@
+<!-- START: Help & Support Widget - Copy and paste this entire block into your HTML -->
+<script>
+(function() {
+    // Configuration - Update these with your widget IDs
+    const CONFIG = {
+        widgets: {
+            sales: '6957688f9b31e9677a93cd8a',
+            support: '695baee03a2b4b52fc6d0f5d',
+            billing: '695bb2498f78c50f59b82a22'
+        },
+        titles: {
+            sales: 'Sales Support',
+            support: 'Technical Support',
+            billing: 'Billing Support'
+        },
+        relationshipNumber: '0-424-624'
+    };
+
+    // Create and inject styles
+    const styles = document.createElement('style');
+    styles.textContent = `
+        .help-widget-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+            transition: all 0.3s ease;
+        }
+        .help-widget-btn:hover {
+            background: #357ABD;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+        }
+        .help-widget-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10001;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .help-widget-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        .help-widget-panel {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 500px;
+            height: 100vh;
+            background: white;
+            z-index: 10002;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow-y: auto;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+        }
+        .help-widget-panel.active {
+            right: 0;
+        }
+        .help-widget-content {
+            padding: 0;
+        }
+        .help-widget-header {
+            background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+            color: white;
+            padding: 40px 30px;
+        }
+        .help-widget-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .help-widget-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.6;
+            margin: 0 0 10px 0;
+        }
+        .help-widget-relationship {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+        .help-widget-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 0;
+        }
+        .help-widget-support-section {
+            padding: 30px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .help-widget-support-section h2 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .help-widget-agent {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .help-widget-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4A90E2 0%, #63b3ed 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+        }
+        .help-widget-agent-info h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+        .help-widget-agent-info p {
+            color: #718096;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 5px 0;
+        }
+        .help-widget-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 30px;
+            background: #f8f9ff;
+        }
+        .help-widget-action-btn {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 20px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.2);
+        }
+        .help-widget-action-btn:hover {
+            background: #e3f2fd;
+            color: #357ABD;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(74, 144, 226, 0.3);
+        }
+        .help-widget-action-btn.active {
+            background: #357ABD;
+            color: white;
+            box-shadow: 0 0 0 2px #4A90E2;
+        }
+        .help-widget-form-container {
+            background: white;
+            display: none;
+        }
+        .help-widget-form-container.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .help-widget-form-iframe {
+            width: 100%;
+            height: 890px;
+            border: none;
+            border-radius: 3px;
+            display: block;
+        }
+        .help-widget-close-form {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .help-widget-close-form:hover {
+            background: #ff3742;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+        }
+        .help-widget-cards {
+            padding: 30px;
+            display: block;
+        }
+        .help-widget-form-container.active + .help-widget-cards {
+            display: none;
+        }
+        .help-widget-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .help-widget-card:hover {
+            border-color: #4A90E2;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        .help-widget-card h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .help-widget-card p {
+            color: #718096;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .help-widget-card-btn {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .help-widget-card-btn:hover {
+            background: #357ABD;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.3);
+        }
+        .lead-connector-chat-launcher,
+        [data-testid="widget-launcher"],
+        .chat-widget-launcher,
+        .floating-chat-button,
+        .lc-chat-launcher,
+        .chat-launcher,
+        .launcher-button,
+        .widget-launcher,
+        .ghl-chat-launcher {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        @media (max-width: 600px) {
+            .help-widget-panel {
+                width: 100%;
+                right: -100%;
+            }
+            .help-widget-header {
+                padding: 30px 20px;
+            }
+            .help-widget-header h1 {
+                font-size: 2rem;
+            }
+            .help-widget-buttons {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            .help-widget-cards {
+                padding: 20px;
+            }
+            .help-widget-card {
+                padding: 20px;
+            }
+            .help-widget-form-iframe {
+                height: 700px;
+            }
+            .help-widget-btn {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+        }
+        @media (max-width: 400px) {
+            .help-widget-header {
+                padding: 25px 15px;
+            }
+            .help-widget-support-section {
+                padding: 20px;
+            }
+            .help-widget-action-btn {
+                padding: 18px 10px;
+            }
+            .help-widget-form-iframe {
+                height: 600px;
+            }
+        }
+    `;
+    document.head.appendChild(styles);
+
+    // Create HTML structure
+    const widgetHTML = `
+        <button class="help-widget-btn" id="helpWidgetBtn">?</button>
+        <div class="help-widget-overlay" id="helpWidgetOverlay"></div>
+        <div class="help-widget-panel" id="helpWidgetPanel">
+            <div class="help-widget-content">
+                <div class="help-widget-header">
+                    <h1>Help & Support</h1>
+                    <p>Whether you want to talk to us, the community, or learn on your own,</p>
+                    <p>we've got you covered!</p>
+                    <div class="help-widget-relationship">
+                        Relationship Number <strong>${CONFIG.relationshipNumber}</strong>
+                    </div>
+                </div>
+                <div class="help-widget-divider"></div>
+                <div class="help-widget-support-section">
+                    <h2>Help & Support</h2>
+                    <h3>Help & Support</h3>
+                    <h3 style="color: #2d3748; margin-bottom: 20px;">Help & Support</h3>
+                    <div class="help-widget-agent">
+                        <div class="help-widget-avatar">H</div>
+                        <div class="help-widget-agent-info">
+                            <h3>Hi, I'm Highly!</h3>
+                            <p>Your Support Specialist</p>
+                            <p>Use any of the buttons below to get help!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="help-widget-buttons">
+                    <button class="help-widget-action-btn" id="zoomBtn">Start Zoom</button>
+                    <button class="help-widget-action-btn" id="chatBtn">Start Chat</button>
+                    <button class="help-widget-action-btn" id="ticketBtn">Raise Ticket</button>
+                </div>
+                <div class="help-widget-form-container" id="ticketFormContainer">
+                    <iframe class="help-widget-form-iframe"
+                        src="https://www.zeacrm.com/widget/form/MgoTsgwFVuiAaMxUmCjY"
+                        data-layout="{'id':'INLINE'}"
+                        data-trigger-type="alwaysShow"
+                        data-trigger-value=""
+                        data-activation-type="alwaysActivated"
+                        data-activation-value=""
+                        data-deactivation-type="neverDeactivate"
+                        data-deactivation-value=""
+                        data-form-name="Raise Ticket in Support"
+                        data-height="890"
+                        data-form-id="MgoTsgwFVuiAaMxUmCjY"
+                        title="Raise Ticket in Support">
+                    </iframe>
+                    <button class="help-widget-close-form" id="closeFormBtn">Close Form</button>
+                </div>
+                <div class="help-widget-cards" id="infoCards">
+                    <div class="help-widget-card">
+                        <h3>Premium Support</h3>
+                        <p>Get priority troubleshooting, expert guidance, and direct access to our technical team via Slack.</p>
+                        <button class="help-widget-card-btn" id="premiumBtn">Upgrade Now</button>
+                    </div>
+                    <div class="help-widget-card">
+                        <h3>Connect with a Certified Admin</h3>
+                        <p>Explore HighLevel experts who can help set up your system, automate workflows, or customize your project.</p>
+                        <button class="help-widget-card-btn" id="adminBtn">Find an Expert</button>
+                    </div>
+                    <div class="help-widget-card">
+                        <h3>Video Tutorials Library</h3>
+                        <p>Access our extensive library of video tutorials covering everything from basic setup to advanced features.</p>
+                        <button class="help-widget-card-btn" id="tutorialsBtn">Watch Tutorials</button>
+                    </div>
+                    <div class="help-widget-card">
+                        <h3>Community Forum</h3>
+                        <p>Join thousands of users in our active community forum. Ask questions, share tips, and learn from others.</p>
+                        <button class="help-widget-card-btn" id="forumBtn">Join Community</button>
+                    </div>
+                    <div class="help-widget-card">
+                        <h3>API Documentation</h3>
+                        <p>Complete API documentation for developers looking to integrate and extend platform functionality.</p>
+                        <button class="help-widget-card-btn" id="apiBtn">View API Docs</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chatWidgetContainer"></div>
+    `;
+
+    // Inject the HTML
+    const container = document.createElement('div');
+    container.id = 'help-widget-root';
+    container.innerHTML = widgetHTML;
+    document.body.appendChild(container);
+
+    // State management
+    let isTicketFormOpen = false;
+    let currentScrollPosition = 0;
+    let hideIconInterval = null;
+
+    // Get DOM elements
+    const elements = {
+        btn: document.getElementById('helpWidgetBtn'),
+        overlay: document.getElementById('helpWidgetOverlay'),
+        panel: document.getElementById('helpWidgetPanel'),
+        ticketForm: document.getElementById('ticketFormContainer'),
+        ticketBtn: document.getElementById('ticketBtn'),
+        cards: document.getElementById('infoCards')
+    };
+
+    // Initialize event listeners
+    function initEventListeners() {
+        // Open/close panel
+        elements.btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openPanel();
+        });
+        elements.overlay.addEventListener('click', closePanel);
+        
+        // Escape key support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (isTicketFormOpen) {
+                    closeTicketForm();
+                } else {
+                    closePanel();
+                }
+            }
+        });
+
+        // Action buttons
+        document.getElementById('zoomBtn').addEventListener('click', openZoom);
+        document.getElementById('chatBtn').addEventListener('click', () => openChat('sales'));
+        document.getElementById('ticketBtn').addEventListener('click', toggleTicketForm);
+        document.getElementById('closeFormBtn').addEventListener('click', closeTicketForm);
+        
+        // Card buttons
+        document.getElementById('premiumBtn').addEventListener('click', () => showAlert('Premium Upgrade'));
+        document.getElementById('adminBtn').addEventListener('click', () => showAlert('Find Expert'));
+        document.getElementById('tutorialsBtn').addEventListener('click', () => showAlert('Tutorials'));
+        document.getElementById('forumBtn').addEventListener('click', () => showAlert('Community'));
+        document.getElementById('apiBtn').addEventListener('click', () => showAlert('API Docs'));
+    }
+
+    // Panel functions
+    function openPanel() {
+        elements.panel.scrollTop = 0;
+        closeTicketForm();
+        elements.overlay.classList.add('active');
+        elements.panel.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePanel() {
+        closeTicketForm();
+        elements.panel.scrollTop = 0;
+        elements.panel.classList.remove('active');
+        setTimeout(() => {
+            elements.overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }, 400);
+    }
+
+    // Button functions
+    function openZoom() {
+        closePanel();
+        window.open('https://www.zeacrm.com/widget/bookings/customer-service-booked-for-a-zoom-call', '_blank');
+    }
+
+    function openChat(type) {
+        loadChatWidget(CONFIG.widgets[type], CONFIG.titles[type]);
+    }
+
+    // Ticket form functions
+    function toggleTicketForm() {
+        if (isTicketFormOpen) {
+            closeTicketForm();
+        } else {
+            openTicketForm();
+        }
+    }
+
+    function openTicketForm() {
+        currentScrollPosition = elements.panel.scrollTop;
+        elements.ticketBtn.classList.add('active');
+        elements.ticketForm.classList.add('active');
+        elements.cards.style.display = 'none';
+        elements.panel.scrollTop = currentScrollPosition;
+        isTicketFormOpen = true;
+    }
+
+    function closeTicketForm() {
+        elements.ticketBtn.classList.remove('active');
+        elements.ticketForm.classList.remove('active');
+        elements.cards.style.display = 'block';
+        elements.panel.scrollTop = currentScrollPosition;
+        isTicketFormOpen = false;
+    }
+
+    // Chat widget loader
+    function loadChatWidget(widgetId, title) {
+        closePanel();
+        
+        // Close existing widget
+        if (window.leadConnector && window.leadConnector.chatWidget) {
+            try {
+                window.leadConnector.chatWidget.close();
+            } catch(e) {
+                console.log("Could not close previous widget");
+            }
+        }
+        
+        // Clear container
+        const container = document.getElementById('chatWidgetContainer');
+        container.innerHTML = '';
+        
+        // Start hiding floating icons
+        if (hideIconInterval) clearInterval(hideIconInterval);
+        hideIconInterval = setInterval(hideFloatingIcons, 300);
+        
+        // Load new widget
+        const script = document.createElement('script');
+        script.src = 'https://widgets.leadconnectorhq.com/loader.js';
+        script.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+        script.setAttribute('data-widget-id', widgetId);
+        
+        script.onload = () => {
+            setTimeout(() => {
+                if (window.leadConnector && window.leadConnector.chatWidget) {
+                    window.leadConnector.chatWidget.openWidget();
+                    hideFloatingIcons();
+                    
+                    // Set chat title
+                    setTimeout(() => {
+                        try {
+                            const chatHeader = document.querySelector('.lead-connector-chat-header h3');
+                            if (chatHeader) chatHeader.textContent = title;
+                        } catch(e) {
+                            console.log('Could not set chat title');
+                        }
+                    }, 800);
+                }
+            }, 1000);
+        };
+        
+        script.onerror = () => {
+            console.error('Failed to load widget script');
+            alert('Failed to load chat. Please try again.');
+        };
+        
+        container.appendChild(script);
+        hideFloatingIcons();
+    }
+
+    // Utility functions
+    function hideFloatingIcons() {
+        const selectors = [
+            '.lead-connector-chat-launcher',
+            '[data-testid="widget-launcher"]',
+            '.chat-widget-launcher',
+            '.floating-chat-button',
+            '.lc-chat-launcher',
+            '.chat-launcher',
+            '.launcher-button',
+            '.widget-launcher',
+            '.ghl-chat-launcher'
+        ];
+        
+        selectors.forEach(selector => {
+            document.querySelectorAll(selector).forEach(el => {
+                if (!el.closest('.lead-connector-chat-widget')) {
+                    el.style.display = 'none';
+                    el.style.visibility = 'hidden';
+                    el.style.opacity = '0';
+                }
+            });
+        });
+    }
+
+    function showAlert(action) {
+        closePanel();
+        alert(`${action} - This would redirect to the actual page.`);
+    }
+
+    // Observe for chat widget appearance
+    function observeChatWidget() {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1 && 
+                            (node.classList && node.classList.contains('lead-connector-chat-widget') ||
+                             node.querySelector && node.querySelector('.lead-connector-chat-widget'))) {
+                            hideFloatingIcons();
+                        }
+                    });
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    // Load ZEA CRM script
+    function loadZeacrmScript() {
+        const script = document.createElement('script');
+        script.src = 'https://www.zeacrm.com/js/form_embed.js';
+        document.body.appendChild(script);
+    }
+
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        initEventListeners();
+        observeChatWidget();
+        loadZeacrmScript();
+        setTimeout(hideFloatingIcons, 1000);
+        console.log('Help & Support Widget initialized successfully');
+    });
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        if (hideIconInterval) clearInterval(hideIconInterval);
+    });
+})();
+</script>
+<!-- END: Help & Support Widget -->

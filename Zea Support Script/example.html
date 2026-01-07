@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple HTML Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fa;
+      color: #1f2937;
+    }
+
+    header {
+      background: #111827;
+      color: #ffffff;
+      padding: 16px 24px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    button {
+      margin-top: 16px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>My Simple Page</h1>
+  </header>
+
+  <main>
+    <h2>Welcome 👋</h2>
+    <p>
+      This is a basic HTML page with inline CSS.
+      No libraries. No frameworks. Just clean structure.
+    </p>
+
+    <button onclick="alert('Button clicked')">
+      Click Me
+    </button>
+  </main>
+
+  <footer>
+    © 2026 Your Company
+  </footer>
+  <script>
+// Help & Support Slide Panel Script
+(function() {
+    'use strict';
+    
+    // Configuration
+    const CHAT_WIDGET_ID = '695baee03a2b4b52fc6d0f5d'; // Your chat widget ID
+    const AGENT_AVATAR_URL = 'https://storage.googleapis.com/msgsndr/bsexF0htDBOfNeCh7844/media/690ee29c6fdbca25a57fe58e.png';
+    
+    // URLs for redirects - UPDATE THESE WITH YOUR ACTUAL URLs
+    const UPGRADE_URL = 'https://zeacrm.com/pricing'; // Replace with actual upgrade URL
+    const TUTORIALS_URL = 'https://zeacrm.com/playbooks/videos'; // Replace with actual tutorials URL
+    const COMMUNITY_URL = 'https://zeacrm.com/contact-us'; // Replace with actual community URL
+    
+    // Create and inject styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .help-support-floating-btn {
+            position: fixed; top: 20px; right: 20px; width: 50px; height: 50px;
+            background: #dfa822; color: black; border: none; border-radius: 50%;
+            font-size: 24px; cursor: pointer; z-index: 10000; display: flex;
+            align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(223, 168, 34, 0.3);
+            transition: all 0.3s ease;
+        }
+        .help-support-floating-btn:hover {
+            background: #c5941e; transform: scale(1.1); box-shadow: 0 6px 16px rgba(223, 168, 34, 0.4);
+        }
+        
+        .help-support-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); z-index: 10001; display: none; opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .help-support-overlay.active { display: block; opacity: 1; }
+        
+        .help-support-panel {
+            position: fixed; top: 0; right: -500px; width: 500px; height: 100vh;
+            background: white; z-index: 10002; transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow-y: auto; box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+        }
+        .help-support-panel.active { right: 0; }
+        
+        .help-support-panel-content { padding: 0; }
+        .help-support-title-section {
+            background: linear-gradient(135deg, #dfa822 0%, #c5941e 100%); color: black;
+            padding: 10px 30px; margin: 0;
+        }
+        .help-support-title-section h2 { font-size: 2rem; margin-bottom: 0px; font-weight: 700; }
+        .help-support-title-section p { font-size: 1.1rem; opacity: 0.9; color: black; line-height: 1.6; }
+        
+        .help-support-section { padding: 10px; border-bottom: 1px solid #e2e8f0; }
+        .help-support-section h3 { color: black; font-size: 1.3rem; margin-bottom: 0px; font-weight: 600; }
+        .help-support-section p { color: black; opacity: 0.7; padding: 0px; margin:0;}
+        
+        .help-support-agent-section {
+            background: #fffdf5; padding: 15px; border-radius: 10px; margin-top: 15px; text-align: center;
+        }
+        .help-support-agent-avatar {
+            width: 100px; height: 100px; background: white;
+            border-radius: 0%; margin: 0 auto 0px auto; display: flex; align-items: center;
+            justify-content: center; font-size: 32px; color: black; font-weight: bold;
+            overflow: hidden; border: 0px solid #dfa822;
+        }
+        .help-support-agent-avatar img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+        }
+        
+        .help-support-buttons-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
+            padding: 30px; background: #fffdf5;
+        }
+        .help-support-btn {
+            background: #dfa822; color: black; border: none; border-radius: 8px;
+            padding: 20px 15px; cursor: pointer; transition: all 0.3s ease; text-align: center;
+            font-size: 1rem; font-weight: 600; box-shadow: 0 4px 8px rgba(223, 168, 34, 0.2);
+        }
+        .help-support-btn:hover {
+            background: #c5941e; transform: translateY(-3px); box-shadow: 0 6px 12px rgba(223, 168, 34, 0.3);
+        }
+        .help-support-btn.active { 
+            background: #c5941e; color: black; box-shadow: 0 0 0 2px #dfa822; 
+        }
+        
+        .help-support-ticket-container { background: white; display: none; position: relative; }
+        .help-support-ticket-container.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .help-support-info-cards { padding: 30px; display: block; }
+        .help-support-info-card {
+            background: white; border: 1px solid #e2e8f0; border-radius: 10px;
+            padding: 25px; margin-bottom: 20px; transition: all 0.3s ease;
+        }
+        .help-support-info-card:hover {
+            border-color: #dfa822; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        .help-support-info-card h3 { color: black; font-size: 1.3rem; margin-bottom: 12px; font-weight: 600; }
+        .help-support-info-card p { color: #333; line-height: 1.6; margin-bottom: 20px; font-size: 0.95rem; }
+        .help-support-info-card-btn {
+            background: #dfa822; color: black; border: none; border-radius: 6px;
+            padding: 10px 20px; cursor: pointer; transition: all 0.3s ease;
+            font-size: 0.9rem; font-weight: 600;
+        }
+        .help-support-info-card-btn:hover {
+            background: #c5941e; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(223, 168, 34, 0.3);
+        }
+        
+        .help-support-close-form-btn {
+            background: #333; color: white; border: none; padding: 12px 24px;
+            border-radius: 5px; cursor: pointer; margin: 20px auto; display: block;
+            font-weight: 600; font-size: 1rem; transition: all 0.3s ease; position: sticky; bottom: 20px; z-index: 10;
+        }
+        .help-support-close-form-btn:hover {
+            background: #000; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        @media (max-width: 600px) {
+            .help-support-panel { width: 100%; right: -100%; }
+            .help-support-title-section { padding: 30px 20px; }
+            .help-support-title-section h2 { font-size: 2rem; }
+            .help-support-buttons-grid { grid-template-columns: 1fr; padding: 20px; }
+            .help-support-info-cards { padding: 20px; }
+            .help-support-info-card { padding: 20px; }
+            .help-support-floating-btn { top: 15px; right: 15px; width: 45px; height: 45px; font-size: 22px; }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Create HTML elements
+    const floatingBtn = document.createElement('button');
+    floatingBtn.className = 'help-support-floating-btn';
+    floatingBtn.id = 'helpSupportBtn';
+    floatingBtn.title = 'Help & Support';
+    floatingBtn.textContent = '?';
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'help-support-overlay';
+    overlay.id = 'helpSupportOverlay';
+    
+    const panel = document.createElement('div');
+    panel.className = 'help-support-panel';
+    panel.id = 'helpSupportPanel';
+    panel.innerHTML = `
+        <div class="help-support-panel-content">
+            <div class="help-support-title-section">
+                <h2>Help & Support</h2>
+                <p>Whether you want to talk to us, the community, or learn on your own, we've got you covered!</p>
+            </div>
+            
+            <div class="help-support-section">
+                <div class="help-support-agent-section">
+                    <div class="help-support-agent-avatar">
+                        <img src="${AGENT_AVATAR_URL}" alt="Zea CRM Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23dfa822\'/><text x=\'50\' y=\'60\' font-family=\'Arial\' font-size=\'40\' text-anchor=\'middle\' fill=\'black\'>Z</text></svg>'" />
+                    </div>
+                    <div class="help-support-agent-info">
+                        <h3>Hi, I'm Zea!</h3>
+                        <p>Your Support Specialist</p>
+                        <p>Use any of the buttons below to get help!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="help-support-buttons-grid">
+                <button class="help-support-btn" id="helpSupportZoomBtn">
+                    Start Zoom
+                </button>
+                <button class="help-support-btn" id="helpSupportChatBtn">
+                    Start Chat
+                </button>
+                <button class="help-support-btn" id="helpSupportTicketBtn">
+                    Raise Ticket
+                </button>
+            </div>
+            
+            <div class="help-support-ticket-container" id="helpSupportTicketContainer">
+                <div class="zeacrm-form-wrapper">
+                    <iframe
+                        src="https://www.zeacrm.com/widget/form/MgoTsgwFVuiAaMxUmCjY"
+                        style="width:100%;height:890px;border:none;border-radius:3px"
+                        id="inline-MgoTsgwFVuiAaMxUmCjY" 
+                        data-layout="{'id':'INLINE'}"
+                        data-trigger-type="alwaysShow"
+                        data-activation-type="alwaysActivated"
+                        data-form-name="Raise Ticket in Support"
+                        title="Raise Ticket in Support">
+                    </iframe>
+                </div>
+                <button class="help-support-close-form-btn" id="helpSupportCloseFormBtn">Close Form</button>
+            </div>
+            
+            <div class="help-support-info-cards" id="helpSupportInfoCards">
+                <div class="help-support-info-card">
+                    <h3>Premium Support</h3>
+                    <p>Get priority troubleshooting, expert guidance, and direct access to our technical team.</p>
+                    <button class="help-support-info-card-btn" id="helpSupportUpgradeBtn">Upgrade Now</button>
+                </div>
+                <div class="help-support-info-card">
+                    <h3>Video Tutorials</h3>
+                    <p>Access our extensive library of video tutorials covering basic setup to advanced features.</p>
+                    <button class="help-support-info-card-btn" id="helpSupportTutorialsBtn">Watch Tutorials</button>
+                </div>
+                <div class="help-support-info-card">
+                    <h3>Community Forum</h3>
+                    <p>Join thousands of users in our active community forum. Ask questions and share tips.</p>
+                    <button class="help-support-info-card-btn" id="helpSupportCommunityBtn">Join Community</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    const chatContainer = document.createElement('div');
+    chatContainer.id = 'helpSupportChatContainer';
+    
+    // Append elements to body
+    document.body.appendChild(floatingBtn);
+    document.body.appendChild(overlay);
+    document.body.appendChild(panel);
+    document.body.appendChild(chatContainer);
+    
+    // Load ZEA CRM script
+    const zeaScript = document.createElement('script');
+    zeaScript.src = 'https://www.zeacrm.com/js/form_embed.js';
+    document.head.appendChild(zeaScript);
+    
+    // Variables
+    let isTicketFormOpen = false;
+    let currentScrollPosition = 0;
+    
+    // Functions
+    function openPanel() {
+        panel.scrollTop = 0;
+        closeTicketForm();
+        overlay.classList.add('active');
+        panel.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closePanel() {
+        closeTicketForm();
+        panel.scrollTop = 0;
+        panel.classList.remove('active');
+        setTimeout(() => {
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }, 400);
+    }
+    
+    function openZoom() {
+        closePanel();
+        window.open('https://www.zeacrm.com/widget/bookings/customer-service-booked-for-a-zoom-call', '_blank');
+    }
+    
+    function openChat() {
+        loadChatWidget();
+    }
+    
+    function loadChatWidget() {
+        closePanel();
+        
+        // Clear container
+        chatContainer.innerHTML = '';
+        
+        // Create chat widget script
+        const script = document.createElement('script');
+        script.src = 'https://widgets.leadconnectorhq.com/loader.js';
+        script.setAttribute('data-resources-url', 'https://widgets.leadconnectorhq.com/chat-widget/loader.js');
+        script.setAttribute('data-widget-id', CHAT_WIDGET_ID);
+        
+        script.onload = function() {
+            setTimeout(() => {
+                if (window.leadConnector && window.leadConnector.chatWidget) {
+                    window.leadConnector.chatWidget.openWidget();
+                }
+            }, 1000);
+        };
+        
+        chatContainer.appendChild(script);
+    }
+    
+    function toggleTicketForm() {
+        if (isTicketFormOpen) {
+            closeTicketForm();
+        } else {
+            openTicketForm();
+        }
+    }
+    
+    function openTicketForm() {
+        currentScrollPosition = panel.scrollTop;
+        document.getElementById('helpSupportTicketBtn').classList.add('active');
+        document.getElementById('helpSupportTicketContainer').classList.add('active');
+        document.getElementById('helpSupportInfoCards').style.display = 'none';
+        panel.scrollTop = currentScrollPosition;
+        isTicketFormOpen = true;
+    }
+    
+    function closeTicketForm() {
+        document.getElementById('helpSupportTicketBtn').classList.remove('active');
+        document.getElementById('helpSupportTicketContainer').classList.remove('active');
+        document.getElementById('helpSupportInfoCards').style.display = 'block';
+        panel.scrollTop = currentScrollPosition;
+        isTicketFormOpen = false;
+    }
+    
+    // Function to redirect to URL
+    function redirectTo(url) {
+        if (url && url !== '#') {
+            closePanel();
+            window.open(url, '_blank');
+        }
+    }
+    
+    // Event Listeners
+    floatingBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openPanel();
+    });
+    
+    overlay.addEventListener('click', closePanel);
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (isTicketFormOpen) {
+                closeTicketForm();
+            } else {
+                closePanel();
+            }
+        }
+    });
+    
+    // Button event listeners
+    document.getElementById('helpSupportZoomBtn').addEventListener('click', openZoom);
+    document.getElementById('helpSupportChatBtn').addEventListener('click', openChat);
+    document.getElementById('helpSupportTicketBtn').addEventListener('click', toggleTicketForm);
+    document.getElementById('helpSupportCloseFormBtn').addEventListener('click', closeTicketForm);
+    
+    // Info card buttons - Updated with redirects
+    document.getElementById('helpSupportUpgradeBtn').addEventListener('click', function() {
+        redirectTo(UPGRADE_URL);
+    });
+    
+    document.getElementById('helpSupportTutorialsBtn').addEventListener('click', function() {
+        redirectTo(TUTORIALS_URL);
+    });
+    
+    document.getElementById('helpSupportCommunityBtn').addEventListener('click', function() {
+        redirectTo(COMMUNITY_URL);
+    });
+    
+    // Initialize
+    console.log('Help & Support Panel loaded successfully');
+    console.log('Configuration URLs:', {
+        upgrade: UPGRADE_URL,
+        tutorials: TUTORIALS_URL,
+        community: COMMUNITY_URL
+    });
+})();
+</script>
+
+</body>
+</html>
