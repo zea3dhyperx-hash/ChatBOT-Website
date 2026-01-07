@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeaCRM Support Center - All-in-One Business Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Light Theme (Updated with softer background) */
+            --primary-color: #dfa822;
+            --secondary-color: #000000;
+            --bg-color: #f8f9fa;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --hover-color: #c8951e;
+            --section-bg: #ffffff;
+            
+            /* Footer Colors */
+            --footer-bg: #1a1a1a;
+            --footer-text: #cccccc;
+            
+            /* Transition for theme switching */
+            --transition-speed: 0.3s;
+        }
+        
+        .dark-theme {
+            /* Dark Theme */
+            --primary-color: #dfa822;
+            --secondary-color: #ffffff;
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --border-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --hover-color: #f0b63d;
+            --section-bg: #1a1a1a;
+            
+            /* Footer Colors */
+            --footer-bg: #0a0a0a;
+            --footer-text: #aaaaaa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 90px; /* Adjusted for fixed header */
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: var(--hover-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles - UPDATED with Logo fixed to left */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 15px var(--shadow-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 90px; /* Increased header height */
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            position: absolute; /* Logo fixed to left */
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .logo {
+            height: 55px; /* Increased logo size */
+        }
+        
+        /* Removed logo-text and logo-subtitle classes */
+        
+        .nav-section {
+            display: flex;
+            align-items: center;
+            margin-left: auto; /* Push navigation to the right */
+            padding-right: 20px; /* Add some padding from right edge */
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            margin-right: 30px;
+        }
+        
+        .nav-link {
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+            background-color: rgba(223, 168, 34, 0.1);
+        }
+        
+        .theme-toggle {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 10px 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .theme-toggle i {
+            margin-right: 8px;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            background-color: var(--section-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--text-color);
+        }
+        
+        .highlight {
+            background-color: rgba(223, 168, 34, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--secondary-color);
+            font-size: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 10px auto;
+        }
+        
+        /* Support Options */
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .support-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .support-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+        
+        .support-icon {
+            background-color: rgba(223, 168, 34, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+        
+        .support-card h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .support-card p {
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+        
+        /* Moving Cards Section */
+        .moving-cards-container {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+            margin-bottom: 60px;
+            user-select: none;
+            cursor: grab;
+        }
+        
+        .moving-cards-wrapper {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+        
+        .moving-cards-wrapper.paused {
+            animation-play-state: paused;
+        }
+        
+        .moving-cards-wrapper.dragging {
+            cursor: grabbing;
+            animation-play-state: paused;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .moving-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-right: 25px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 3px 10px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            width: 280px;
+            flex-shrink: 0;
+        }
+        
+        .moving-card h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .moving-card h3 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .moving-card ul {
+            list-style-type: none;
+        }
+        
+        .moving-card li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .moving-card li:last-child {
+            border-bottom: none;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background-color: var(--section-bg);
+            padding: 60px 0;
+            margin-bottom: 60px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 3px 8px var(--shadow-color);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(223, 168, 34, 0.05);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        .faq-toggle {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-toggle.active {
+            transform: rotate(45deg);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-card h3 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .contact-detail {
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .contact-detail h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .contact-detail p {
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: auto;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .contact-link:hover {
+            background-color: var(--hover-color);
+            color: white;
+        }
+        
+        /* Social Media Section */
+        .social-media-section {
+            background-color: var(--section-bg);
+            padding: 50px 0;
+            margin-bottom: 60px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .social-media-title {
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            width: 100px;
+        }
+        
+        .social-icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: rgba(223, 168, 34, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 28px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover .social-icon-circle {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .social-icon span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 60px 0;
+            background-color: var(--section-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 60px;
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            position: relative;
+            margin: 10px; /* Added margin for spacing */
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: rgba(223, 168, 34, 0.2);
+            font-size: 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style-type: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+        
+        .social-footer {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-footer a {
+            color: var(--footer-text);
+            font-size: 1.2rem;
+        }
+        
+        .social-footer a:hover {
+            color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #999;
+        }
+        
+        /* Scroll Hint */
+        .scroll-hint {
+            text-align: center;
+            margin-top: 15px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Mobile Navigation Menu */
+        .mobile-nav {
+            position: fixed;
+            top: 90px;
+            left: 0;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 5px 15px var(--shadow-color);
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            z-index: 999;
+        }
+        
+        .mobile-nav.active {
+            display: flex;
+        }
+        
+        .mobile-nav-link {
+            padding: 15px;
+            color: var(--secondary-color);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .mobile-nav-link:last-child {
+            border-bottom: none;
+        }
+        
+        .mobile-nav-link:hover {
+            color: var(--primary-color);
+            background-color: rgba(223, 168, 34, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .nav-links {
+                gap: 15px;
+                margin-right: 20px;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+        }
+        
+        @media (max-width: 950px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .logo-container {
+                left: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 90px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .moving-cards-wrapper {
+                animation: scroll 60s linear infinite;
+            }
+            
+            .social-icons {
+                gap: 15px;
+            }
+            
+            .social-icon {
+                width: 80px;
+            }
+            
+            .testimonial-card {
+                margin: 5px;
+            }
+            
+            header {
+                height: 85px;
+            }
+            
+            .logo {
+                height: 50px;
+            }
+            
+            .logo-container {
+                left: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .support-options, .testimonials-container, .social-icons {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .moving-card {
+                width: 250px;
+            }
+            
+            .social-icon {
+                flex-direction: row;
+                width: 100%;
+                justify-content: flex-start;
+                text-align: left;
+            }
+            
+            .social-icon-circle {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .testimonial-card {
+                margin: 10px 5px;
+            }
+            
+            header {
+                height: 80px;
+            }
+            
+            .logo {
+                height: 45px;
+            }
+            
+            .logo-container {
+                left: 10px;
+            }
+            
+            .theme-toggle {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .nav-section {
+                padding-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Logo Fixed to Left - UPDATED -->
+    <header>
+        <!-- Logo Fixed to Left -->
+        <div class="logo-container">
+            <img src="https://storage.googleapis.com/msgsndr/bsexF0htDBOfNeCh7844/media/e55156bf-2bbb-4abb-b09a-fd207dfbc0dc.png" alt="ZeaCRM Logo" class="logo">
+            <!-- Removed text elements -->
+        </div>
+        
+        <!-- Navigation and Theme Toggle -->
+        <div class="nav-section">
+            <!-- Desktop Navigation -->
+            <div class="nav-links">
+                <a href="#support-options" class="nav-link">Get Help</a>
+                <a href="#help-topics" class="nav-link">Help Topics</a>
+                <a href="#faq" class="nav-link">FAQs</a>
+                <a href="#social" class="nav-link">Connect</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Theme Toggle -->
+            <div class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark Mode</span>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#support-options" class="mobile-nav-link">Get Help</a>
+            <a href="#help-topics" class="mobile-nav-link">Help Topics</a>
+            <a href="#faq" class="mobile-nav-link">FAQs</a>
+            <a href="#social" class="mobile-nav-link">Connect With Us</a>
+            <a href="#contact" class="mobile-nav-link">Contact Us</a>
+            <a href="#testimonials" class="mobile-nav-link">Customer Testimonials</a>
+        </div>
+    </header>
+
+    <!-- Hero Section with Search -->
+    <section class="hero">
+        <div class="container">
+            <h1>ZeaCRM Support Center</h1>
+            <div class="hero-subtitle">All-in-One CRM & Business Management Platform</div>
+            <p>Get help with your <span class="highlight">complete business management platform</span>. Find guides, tutorials, and resources to manage leads, automate marketing, and grow your business.</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search for help with pipelines, automation, SMS, or integrations...">
+                <button class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Support Options -->
+        <section class="main-content" id="support-options">
+            <h2 class="section-title">How Can We Help You?</h2>
+            
+            <div class="support-options">
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Getting Started Guides</h3>
+                    <p>New to ZeaCRM? Learn how to set up your account, import contacts, configure pipelines, and connect your business integrations.</p>
+                    <a href="#">Start Learning →</a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>Video Training Library</h3>
+                    <p>Watch step-by-step tutorials on using ZeaCRM's features: lead capture, automated follow-ups, client management, and reporting.</p>
+                    <a href="#">Watch Videos →</a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Documentation & FAQs</h3>
+                    <p>Comprehensive documentation covering all features, troubleshooting common issues, and best practices for business teams.</p>
+                    <a href="#">Browse Docs →</a>
+                </div>
+            </div>
+            
+            <!-- Moving Cards Section -->
+            <h2 class="section-title" id="help-topics">Popular Help Topics</h2>
+            <div class="moving-cards-container">
+                <div class="moving-cards-wrapper" id="movingCardsWrapper">
+                    <!-- Card 1 -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-users"></i> Lead Management</h3>
+                        <ul>
+                            <li><a href="#">Setting up lead capture forms</a></li>
+                            <li><a href="#">Importing leads from websites</a></li>
+                            <li><a href="#">Creating & managing pipelines</a></li>
+                            <li><a href="#">Lead scoring & prioritization</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-robot"></i> Automation</h3>
+                        <ul>
+                            <li><a href="#">Creating SMS/email drip campaigns</a></li>
+                            <li><a href="#">Setting up appointment reminders</a></li>
+                            <li><a href="#">Workflow triggers & conditions</a></li>
+                            <li><a href="#">Automated follow-up sequences</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-chart-line"></i> Marketing Tools</h3>
+                        <ul>
+                            <li><a href="#">Creating marketing campaigns</a></li>
+                            <li><a href="#">Email marketing campaigns</a></li>
+                            <li><a href="#">SMS marketing compliance</a></li>
+                            <li><a href="#">Social media integration</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 4 -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-cog"></i> Integrations</h3>
+                        <ul>
+                            <li><a href="#">Website data integration</a></li>
+                            <li><a href="#">Third-party connections</a></li>
+                            <li><a href="#">Calendar sync (Google/Outlook)</a></li>
+                            <li><a href="#">Website & chatbot setup</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 5 -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-calendar-check"></i> Appointment Scheduling</h3>
+                        <ul>
+                            <li><a href="#">Setting up booking pages</a></li>
+                            <li><a href="#">Calendar synchronization</a></li>
+                            <li><a href="#">Automated reminders</a></li>
+                            <li><a href="#">Managing appointments</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 6 -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-chart-bar"></i> Reporting & Analytics</h3>
+                        <ul>
+                            <li><a href="#">Understanding dashboards</a></li>
+                            <li><a href="#">Custom report creation</a></li>
+                            <li><a href="#">Performance metrics</a></li>
+                            <li><a href="#">Exporting data</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Duplicate cards for seamless scrolling -->
+                    <!-- Card 1 (Duplicate) -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-users"></i> Lead Management</h3>
+                        <ul>
+                            <li><a href="#">Setting up lead capture forms</a></li>
+                            <li><a href="#">Importing leads from websites</a></li>
+                            <li><a href="#">Creating & managing pipelines</a></li>
+                            <li><a href="#">Lead scoring & prioritization</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 2 (Duplicate) -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-robot"></i> Automation</h3>
+                        <ul>
+                            <li><a href="#">Creating SMS/email drip campaigns</a></li>
+                            <li><a href="#">Setting up appointment reminders</a></li>
+                            <li><a href="#">Workflow triggers & conditions</a></li>
+                            <li><a href="#">Automated follow-up sequences</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 3 (Duplicate) -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-chart-line"></i> Marketing Tools</h3>
+                        <ul>
+                            <li><a href="#">Creating marketing campaigns</a></li>
+                            <li><a href="#">Email marketing campaigns</a></li>
+                            <li><a href="#">SMS marketing compliance</a></li>
+                            <li><a href="#">Social media integration</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 4 (Duplicate) -->
+                    <div class="moving-card">
+                        <h3><i class="fas fa-cog"></i> Integrations</h3>
+                        <ul>
+                            <li><a href="#">Website data integration</a></li>
+                            <li><a href="#">Third-party connections</a></li>
+                            <li><a href="#">Calendar sync (Google/Outlook)</a></li>
+                            <li><a href="#">Website & chatbot setup</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-hint">Hover to pause • Click and drag to scroll manually</div>
+            
+            <!-- FAQ Section -->
+            <section class="faq-section" id="faq">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is ZeaCRM and what does it offer?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>ZeaCRM is an all-in-one business management platform that combines CRM, marketing automation, appointment scheduling, and reporting tools in a single dashboard. It's designed to help businesses manage customer relationships, automate marketing, and streamline operations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I import my existing contacts into ZeaCRM?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can import contacts via CSV file directly from the Contacts section. ZeaCRM also offers direct integrations with popular platforms and website forms for automatic lead import. Check our "Getting Started" guide for step-by-step instructions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I set up automated SMS campaigns for customer follow-up?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! ZeaCRM includes powerful SMS automation. You can create drip campaigns that trigger based on customer behavior, send appointment reminders, and enable two-way texting. All SMS conversations are automatically logged in the contact's profile.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What kind of reporting and analytics does ZeaCRM provide?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>ZeaCRM offers comprehensive reporting including lead source tracking, conversion rates, pipeline performance, team productivity metrics, and marketing campaign ROI. Custom dashboards can be created to monitor your most important business KPIs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I connect my website to capture leads automatically?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>ZeaCRM provides embeddable forms and a website builder. You can add forms to any website using a simple script, or use our built-in website templates. Leads captured through these forms automatically flow into your CRM and trigger assigned workflows.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is there training available for new users?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! We offer multiple training options: 1) Video tutorial library, 2) Weekly live training sessions, 3) Onboarding assistance for new customers, and 4) Advanced training for teams. Check the "Video Training Library" section above to get started.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Social Media Section -->
+            <section class="social-media-section" id="social">
+                <h2 class="social-media-title">Connect With Us</h2>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/people/ZEA-CRM/61580373855637/" target="_blank" class="social-icon">
+                        <div class="social-icon-circle">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <span>Facebook</span>
+                    </a>
+                    
+                    <a href="https://www.instagram.com/zea_crm_official?igsh=ODhhODdwZjA5ZmYx" target="_blank" class="social-icon">
+                        <div class="social-icon-circle">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <span>Instagram</span>
+                    </a>
+                    
+                    <a href="https://www.linkedin.com/company/108730180/admin/dashboard/" target="_blank" class="social-icon">
+                        <div class="social-icon-circle">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <span>LinkedIn</span>
+                    </a>
+                    
+                    <a href="https://www.youtube.com/@ZEACRM" target="_blank" class="social-icon">
+                        <div class="social-icon-circle">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <span>YouTube</span>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Contact Section -->
+            <section class="contact-section" id="contact">
+                <h2 class="section-title">Contact Us</h2>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h3><i class="fas fa-envelope"></i> Email Us</h3>
+                        <div class="contact-detail">
+                            <h4>For general inquiries, partnerships, and support:</h4>
+                            <p>support@zeacrm.com</p>
+                        </div>
+                        <a href="mailto:support@zeacrm.com" class="contact-link">Send Email</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3><i class="fas fa-phone"></i> Call Us</h3>
+                        <div class="contact-detail">
+                            <h4>Sales & Support Team</h4>
+                            <p>+91 94884 48291</p>
+                            <p><strong>(Mon-Fri, 10am-6pm IST)</strong></p>
+                        </div>
+                        <a href="tel:+919488448291" class="contact-link">Call Now</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Office Address</h3>
+                        <div class="contact-detail">
+                            <h4>ZeaCRM HQ</h4>
+                            <p>16, CPS Tower, Advaitha Ashram Rd, Fairlands,<br>
+                            Salem, Tamil Nadu 636004<br>
+                            India</p>
+                        </div>
+                        <a href="https://maps.google.com/?q=16+CPS+Tower+Advaitha+Ashram+Road+Fairlands+Salem+Tamil+Nadu+636004" target="_blank" class="contact-link">View on Map</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Testimonials Section -->
+            <section class="testimonials-section" id="testimonials">
+                <h2 class="section-title">What Our Customers Say</h2>
+                
+                <div class="testimonials-container">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">"Switching to ZeaCRM transformed our business operations. The pipeline management alone helped us close 30% more deals in the first quarter. The automation features save us 15+ hours per week on customer follow-ups."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">RK</div>
+                            <div class="author-info">
+                                <h4>Rajesh Kumar</h4>
+                                <p>Business Owner</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">"As a team of 12 salespeople, we needed a CRM that could scale with us. ZeaCRM gave us exactly that. The lead distribution and team performance tracking are game-changers for our organization."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">PS</div>
+                            <div class="author-info">
+                                <h4>Priya Sharma</h4>
+                                <p>Sales Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">"The integration with our website was seamless. Now leads flow directly into our pipelines and trigger automated follow-up sequences. Our response time to new leads went from hours to minutes!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">VM</div>
+                            <div class="author-info">
+                                <h4>Vikram Mehta</h4>
+                                <p>Marketing Director</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <img src="https://storage.googleapis.com/msgsndr/bsexF0htDBOfNeCh7844/media/ad585294-c789-4dd4-8fee-c9764a7630b2.png" alt="ZeaCRM Square Logo" class="footer-logo">
+                    <p>ZeaCRM is an all-in-one business platform that helps you manage customer relationships, automate marketing, and grow your business with powerful tools in a single dashboard.</p>
+                    <div class="social-footer">
+                        <a href="https://www.facebook.com/people/ZEA-CRM/61580373855637/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/zea_crm_official?igsh=ODhhODdwZjA5ZmYx" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/108730180/admin/dashboard/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@ZEACRM" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#support-options">Get Help</a></li>
+                        <li><a href="#help-topics">Help Topics</a></li>
+                        <li><a href="#faq">FAQs</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Business CRM Guide</a></li>
+                        <li><a href="#">Marketing Templates</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Partner Program</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>ZeaCRM</h3>
+                    <ul>
+                        <li><a href="#">About ZeaCRM</a></li>
+                        <li><a href="#">Pricing & Plans</a></li>
+                        <li><a href="#">Blog & Updates</a></li>
+                        <li><a href="#">Become a Partner</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 ZeaCRM. All rights reserved. An all-in-one business management platform.</p>
+                <p style="margin-top: 10px;">ZeaCRM is a trademark of ZeaCRM Solutions Pvt Ltd.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        const themeText = themeToggle.querySelector('span');
+        
+        // Check for saved theme preference or default to light
+        const savedTheme = localStorage.getItem('zea-theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeIcon.className = 'fas fa-sun';
+            themeText.textContent = 'Light Mode';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            
+            if (document.body.classList.contains('dark-theme')) {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light Mode';
+                localStorage.setItem('zea-theme', 'dark');
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Dark Mode';
+                localStorage.setItem('zea-theme', 'light');
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            // Change icon based on state
+            const icon = mobileMenuToggle.querySelector('i');
+            if (mobileNav.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+        
+        // Close mobile menu when clicking a link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                mobileMenuToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+        
+        // Search functionality
+        const searchBox = document.querySelector('.search-box');
+        const searchButton = document.querySelector('.search-button');
+        
+        searchButton.addEventListener('click', performSearch);
+        searchBox.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const query = searchBox.value.trim();
+            if (query) {
+                // Simulate search with common ZeaCRM topics
+                const topics = ['pipeline', 'automation', 'sms', 'website', 'calendar', 'email', 'report'];
+                const foundTopic = topics.find(topic => query.toLowerCase().includes(topic));
+                
+                if (foundTopic) {
+                    alert(`Searching for: "${query}"\n\nWe found resources related to "${foundTopic}". Redirecting to relevant documentation...`);
+                    // In a real implementation, you would redirect to search results
+                } else {
+                    alert(`Searching for: "${query}"\n\nCheck our documentation or contact support for help with this topic.`);
+                }
+            } else {
+                alert('Please enter a search term. Try searching for: pipeline, automation, SMS, or integration');
+            }
+        }
+        
+        // Moving cards with drag functionality
+        const movingCardsContainer = document.querySelector('.moving-cards-container');
+        const movingCardsWrapper = document.getElementById('movingCardsWrapper');
+        
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+        
+        // Pause animation on hover
+        movingCardsContainer.addEventListener('mouseenter', () => {
+            movingCardsWrapper.classList.add('paused');
+        });
+        
+        movingCardsContainer.addEventListener('mouseleave', () => {
+            if (!isDragging) {
+                movingCardsWrapper.classList.remove('paused');
+            }
+        });
+        
+        // Mouse events for dragging
+        movingCardsContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            movingCardsWrapper.classList.add('dragging');
+            movingCardsContainer.style.cursor = 'grabbing';
+            
+            // Get initial position
+            startX = e.pageX - movingCardsContainer.offsetLeft;
+            scrollLeft = movingCardsWrapper.scrollLeft;
+            
+            // Prevent default behavior
+            e.preventDefault();
+        });
+        
+        movingCardsContainer.addEventListener('mouseup', () => {
+            isDragging = false;
+            movingCardsWrapper.classList.remove('dragging');
+            movingCardsContainer.style.cursor = 'grab';
+        });
+        
+        movingCardsContainer.addEventListener('mouseleave', () => {
+            isDragging = false;
+            movingCardsWrapper.classList.remove('dragging');
+            movingCardsContainer.style.cursor = 'grab';
+        });
+        
+        movingCardsContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            // Calculate new scroll position
+            const x = e.pageX - movingCardsContainer.offsetLeft;
+            const walk = (x - startX) * 2; // Multiply for faster scrolling
+            movingCardsWrapper.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Touch events for mobile devices
+        movingCardsContainer.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            movingCardsWrapper.classList.add('dragging');
+            movingCardsWrapper.classList.add('paused');
+            
+            // Get initial position
+            startX = e.touches[0].pageX - movingCardsContainer.offsetLeft;
+            scrollLeft = movingCardsWrapper.scrollLeft;
+        });
+        
+        movingCardsContainer.addEventListener('touchend', () => {
+            isDragging = false;
+            movingCardsWrapper.classList.remove('dragging');
+            setTimeout(() => {
+                if (!isDragging) {
+                    movingCardsWrapper.classList.remove('paused');
+                }
+            }, 100);
+        });
+        
+        movingCardsContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            // Calculate new scroll position
+            const x = e.touches[0].pageX - movingCardsContainer.offsetLeft;
+            const walk = (x - startX) * 2;
+            movingCardsWrapper.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Initialize moving cards with seamless scroll
+        const movingCards = document.querySelectorAll('.moving-card');
+        const originalCardsCount = 6; // We now have 6 original cards
+        
+        // Ensure smooth animation
+        movingCardsWrapper.style.width = `${originalCardsCount * 305 * 2}px`; // Account for duplicates
+        
+        // FAQ functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const toggle = question.querySelector('.faq-toggle');
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-answer').forEach(item => {
+                    if (item !== answer) {
+                        item.classList.remove('active');
+                        item.previousElementSibling.querySelector('.faq-toggle').classList.remove('active');
+                    }
+                });
+                
+                // Toggle current FAQ item
+                answer.classList.toggle('active');
+                toggle.classList.toggle('active');
+            });
+        });
+        
+        // Contact link functionality
+        const contactLinks = document.querySelectorAll('.contact-link');
+        contactLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('mailto') || 
+                    this.getAttribute('href').startsWith('tel') || 
+                    this.getAttribute('href').startsWith('http')) {
+                    // Allow default behavior for mailto, tel, and external links
+                    return;
+                }
+                e.preventDefault();
+                alert('Thank you for your interest. In a live implementation, this would open the appropriate application.');
+            });
+        });
+        
+        // Social media icon hover effects
+        const socialIcons = document.querySelectorAll('.social-icon-circle');
+        socialIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.1)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        if (mobileNav.classList.contains('active')) {
+                            mobileNav.classList.remove('active');
+                            mobileMenuToggle.querySelector('i').className = 'fas fa-bars';
+                        }
+                        
+                        // Calculate header height for offset
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - headerHeight - 10,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
